@@ -25,4 +25,6 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 	private:
 		char mode = '1';
+		int depth = 10;
+		int depthM1 = 4;
 };

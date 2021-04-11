@@ -17,16 +17,17 @@ void ofApp::draw(){
     It's in charge of drawing all figures and text on screen */
     ofNoFill();
     if(mode == '1'){
-        drawMode1(ofGetWidth()/2, ofGetHeight()/2, 4);
+        drawMode1(ofGetWidth()/2, ofGetHeight()/2, depthM1);
     }else if(mode == '2'){
-        drawMode2(200, 10, ofGetWidth()/2, ofGetHeight()-50, 30);
+        drawMode2(200, depth, ofGetWidth()/2, ofGetHeight()-50, 30);
     }else if(mode == '3') {
-        drawMode3(ofGetWidth() / 3, 10, ofGetHeight() / 2, 10);
+        drawMode3(ofGetWidth() / 3, 10, ofGetHeight() / 2, depth);
 
     }
 }
 void ofApp::drawMode1(int x, int y, int n){
     if(n!=0){
+        ofSetColor(x/4, y/4, n*64 );
         ofDrawCircle(x, y, 100);
         drawMode1(x+100, y, n-1);
         drawMode1(x-100, y, n-1);
@@ -36,6 +37,9 @@ void ofApp::drawMode1(int x, int y, int n){
 }
 void ofApp::drawMode2(int length, int n, int x, int y, int d){
     if(n != 0){
+        ofSetColor(x/4, y/4, n*25.6);
+
+
         int middleY = y-length;
         int leftBranchX = x -length*cos(PI/180*d);
         int leftBranchY = middleY -length*sin(PI/180*d);
@@ -56,6 +60,8 @@ void ofApp::drawMode3(float x, float y, float size, int n){
     if(n == 0) {
         return;
     }
+
+    ofSetColor(x/4, y/4, n*25.6);
 
     ofPoint a(x, y);
     ofPoint b(x + size, y);
@@ -83,6 +89,16 @@ void ofApp::keyPressed(int key){
             break;
         case '4':
             mode = '4';
+            break;
+
+        case '-':
+            if(depth>0) depth--;
+            if(depthM1>0) depthM1--;
+            break;
+
+        case '=':
+            depth++;
+            depthM1++;
             break;
     }
 }
