@@ -2,6 +2,9 @@
 #include<cmath>
 
 #include "ofMain.h"
+#include "FractalMode.h"
+#include "drawMode1.h"
+#include "drawMode2.h"
 
 class ofApp : public ofBaseApp{
 	public:
@@ -27,4 +30,7 @@ class ofApp : public ofBaseApp{
 		char mode = '1';
 		int depth = 10;
 		int depthM1 = 4;
+
+		DM1 *dm1;
+		DM2 *dm2;
 };

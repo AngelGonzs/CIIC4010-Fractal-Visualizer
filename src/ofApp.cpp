@@ -2,6 +2,9 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    dm1 = new DM1(false);
+    dm2 = new DM2(false, 10);
+    dm2->randomize(10);
 }
 
 //--------------------------------------------------------------
@@ -17,11 +20,11 @@ void ofApp::draw(){
     It's in charge of drawing all figures and text on screen */
     ofNoFill();
     if(mode == '1'){
-        drawMode1(ofGetWidth()/2, ofGetHeight()/2, depthM1);
+        dm1->draw(ofGetWidth()/2, ofGetHeight()/2, depthM1, 100);
     }else if(mode == '2'){
-        drawMode2(200, depth, ofGetWidth()/2, ofGetHeight()-50, 30);
+        dm2->draw(ofGetWidth()/2, ofGetHeight()-50, depth, 200);
     }else if(mode == '3') {
-        drawMode3(ofGetWidth() / 3, 10, ofGetHeight() / 2, depth);
+        drawMode3(ofGetWidth() / 8, 10, ofGetHeight() / 2, depth);
 
     }
 }
@@ -70,7 +73,8 @@ void ofApp::drawMode3(float x, float y, float size, int n){
     ofDrawTriangle(a, b, c);
 
     drawMode3(x, y, size / 2, n - 1);
-    drawMode3((a.x + b.x) / 2, (a.y + b.y) / 2, size / 2, n - 1);
+    drawMode3(b.x, y, size / 2, n - 1);
+    drawMode3(c.x, c.y, size/2, n-1);
 }
 
 
