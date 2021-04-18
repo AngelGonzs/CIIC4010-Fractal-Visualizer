@@ -1,10 +1,12 @@
 #pragma once
 #include<cmath>
+#include<vector>
 
 #include "ofMain.h"
 #include "FractalMode.h"
 #include "drawMode1.h"
 #include "drawMode2.h"
+#include "drawMode3.h"
 
 class ofApp : public ofBaseApp{
 	public:
@@ -27,10 +29,15 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 	private:
-		char mode = '1';
+		char mode;
 		int depth = 10;
 		int depthM1 = 4;
 
+
 		DM1 *dm1;
 		DM2 *dm2;
+		DM3 *dm3;
+
+		vector<Fractal*> dms;
+		
 };

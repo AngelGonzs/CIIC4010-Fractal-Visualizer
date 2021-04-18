@@ -3,8 +3,15 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     dm1 = new DM1(false);
-    dm2 = new DM2(false, 10);
-    dm2->randomize(10);
+
+    dm2 = new DM2(false, depth);
+    dm2->randomize(depth);
+
+    dm3 = new DM3(false);
+
+    dms.push_back(dm1);
+    dms.push_back(dm2);
+    dms.push_back(dm3);
 }
 
 //--------------------------------------------------------------
@@ -19,14 +26,32 @@ void ofApp::draw(){
     /* The update method is called muliple times per second
     It's in charge of drawing all figures and text on screen */
     ofNoFill();
-    if(mode == '1'){
-        dm1->draw(ofGetWidth()/2, ofGetHeight()/2, depthM1, 100);
-    }else if(mode == '2'){
-        dm2->draw(ofGetWidth()/2, ofGetHeight()-50, depth, 200);
-    }else if(mode == '3') {
-        drawMode3(ofGetWidth() / 8, 10, ofGetHeight() / 2, depth);
-
+    ofDrawBitmapString(mode, 100,100);
+    if(dms[0]->getActivate()){
+        dms[0]->draw(ofGetWidth()/2, ofGetHeight()/2, depthM1, 100);
     }
+    if(dms[1]->getActivate()){
+        dms[1]->draw(ofGetWidth()/2, ofGetHeight()-50, depth, 200);
+    }
+    if(dms[2]->getActivate()) {
+        dms[2]->draw(ofGetWidth() / 8, 10, ofGetHeight() / 2, depth);
+    }
+
+    if(mode=='1'){
+        dms[0]->setActivate();
+        mode = '0';
+    }
+    if(mode=='2'){
+        dms[1]->setActivate();
+        dm2->randomize(depth);
+        mode = '0';
+    }
+    if(mode=='3'){
+        dms[2]->setActivate();
+        mode = '0';
+    }
+
+
 }
 void ofApp::drawMode1(int x, int y, int n){
     if(n!=0){

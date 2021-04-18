@@ -5,7 +5,7 @@ class Fractal{
     public:
         Fractal(bool);
         virtual void draw(int,int,int,int) = 0;
-        void setActivate(bool);
+        void setActivate();
         bool getActivate();
     private:
         bool activate = false;

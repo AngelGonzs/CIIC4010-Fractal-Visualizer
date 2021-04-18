@@ -13,7 +13,12 @@
 			"*.ipp": "cpp",
 			"string_view": "cpp",
 			"regex": "cpp",
-			"tuple": "cpp"
+			"tuple": "cpp",
+			"array": "cpp",
+			"bitset": "cpp",
+			"initializer_list": "cpp",
+			"utility": "cpp",
+			"valarray": "cpp"
 		}
 	}
 }
