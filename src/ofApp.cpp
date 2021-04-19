@@ -19,6 +19,23 @@ void ofApp::update(){
     /* The update method is called muliple times per second
     It's in charge of updating variables and the logic of our app */
     ofSetBackgroundColor(0,0,0);
+    if(animation){
+        timer += 1;
+        if(timer>=120){
+            depth++;
+            depthM1++;
+            timer = 0;
+            //note that if many modes are activated at once there WILL be delay
+            //this is due to how trash this VM is ;)
+            // (if u r not on a VM congrats)
+        }
+        if(depth >= 10){
+            depth = 10;
+            depthM1 = 4;
+            //returns depths to default values
+            animation = false;
+        }
+    }
 }
 
 //--------------------------------------------------------------
@@ -128,6 +145,12 @@ void ofApp::keyPressed(int key){
         case '=':
             depth++;
             depthM1++;
+            break;
+
+        case ' ':
+            depth = 0;
+            depthM1 = 0;
+            animation = true;
             break;
     }
 }

@@ -39,5 +39,10 @@ class ofApp : public ofBaseApp{
 		DM3 *dm3;
 
 		vector<Fractal*> dms;
+
+
+		//variables for animation feature
+		int timer = 0;
+		bool animation = false;
 		
 };
