@@ -23,6 +23,7 @@ class ofApp : public ofBaseApp{
 		void drawMode3(float x, float y, float size, int n);
 		//new:
 		void drawMode4(float, float, float, float, int);
+		void drawMode5(float, float, float, int);
 		//
 		void keyPressed(int key);
 		void keyReleased(int key);

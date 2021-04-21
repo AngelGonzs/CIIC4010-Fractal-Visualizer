@@ -68,6 +68,7 @@ void ofApp::draw(){
         mode = '0';
     }
     if(mode=='3'){
+        spotlight.disable();
         dms[2]->setActivate();
         mode = '0';
     }
@@ -81,6 +82,8 @@ void ofApp::draw(){
             temp.draw();
         }
         rot += 0.1;
+        spotlight.disable();
+
     }
 
     if(mode=='5'){
@@ -89,6 +92,11 @@ void ofApp::draw(){
         ofRotateXDeg(rot);
         drawMode4(0,0,0,300,depthM1);
         rot += 0.01;
+    }
+
+    if(mode=='6'){
+        ofTranslate(ofGetWidth()/2 - 100, ofGetHeight()/2 - 100);
+        drawMode5(0,0,200,depthM1);
     }
     cam.end();
 }
@@ -110,6 +118,9 @@ void ofApp::keyPressed(int key){
             break;
         case '5':
             mode = '5';
+            break;
+        case '6':
+            mode = '6';
             break;
 
         case '-':
@@ -161,7 +172,21 @@ void ofApp::drawMode4(float x, float y, float z, float size, int n){
         }
     }
 }
-
+//--------------------------------------------------------------
+void ofApp::drawMode5(float x, float y, float size, int n){
+    if(n!=0){
+        ofDrawRectangle(x,y,size,size);
+        for(int i=-1;i<2;i++){
+            for(int j=-1;j<2;j++){
+                int sum = abs(i) + abs(j);
+                if(sum!=0){
+                    drawMode5(x - i*(size/3) + size/3, y + j*(size/3) + size/3, size/3, n-1);
+                }
+            }
+        }
+        
+    }
+}
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
