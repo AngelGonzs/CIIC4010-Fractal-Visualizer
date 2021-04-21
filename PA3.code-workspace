@@ -18,7 +18,9 @@
 			"bitset": "cpp",
 			"initializer_list": "cpp",
 			"utility": "cpp",
-			"valarray": "cpp"
+			"valarray": "cpp",
+			"deque": "cpp",
+			"string": "cpp"
 		}
 	}
 }

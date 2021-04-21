@@ -12,6 +12,9 @@ void ofApp::setup(){
     dms.push_back(dm1);
     dms.push_back(dm2);
     dms.push_back(dm3);
+
+    Menger bocks(0,0,0,200);
+    cubes.push_back(bocks);
 }
 
 //--------------------------------------------------------------
@@ -68,58 +71,25 @@ void ofApp::draw(){
         mode = '0';
     }
 
-
-}
-void ofApp::drawMode1(int x, int y, int n){
-    if(n!=0){
-        ofSetColor(x/4, y/4, n*64 );
-        ofDrawCircle(x, y, 100);
-        drawMode1(x+100, y, n-1);
-        drawMode1(x-100, y, n-1);
-        drawMode1(x, y+100, n-1);
-        drawMode1(x, y-100, n-1);
-    }
-}
-void ofApp::drawMode2(int length, int n, int x, int y, int d){
-    if(n != 0){
-        ofSetColor(x/4, y/4, n*25.6);
-
-
-        int middleY = y-length;
-        int leftBranchX = x -length*cos(PI/180*d);
-        int leftBranchY = middleY -length*sin(PI/180*d);
-        int rightBranchX = x +length*cos(PI/180*d);
-        int rightBranchY = middleY -length*sin(PI/180*d);
-
-        ofDrawLine(x, y, x,y-length);
-        ofDrawLine(x, y-length, rightBranchX, rightBranchY);
-        ofDrawLine(x,y-length, leftBranchX, leftBranchY);
-
-        drawMode2(length/2, n-1,rightBranchX,rightBranchY, 30);
-        drawMode2(length/2,n-1,leftBranchX,leftBranchY, 30);
-    }
-    
-}
-
-void ofApp::drawMode3(float x, float y, float size, int n){
-    if(n == 0) {
-        return;
+    if(mode=='4'){
+        ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
+        ofRotateXDeg(rot);
+        ofSetColor(255);
+        spotlight.enable();
+        for(Menger temp: cubes){
+            temp.draw();
+        }
+        rot += 0.1;
     }
 
-    ofSetColor(x/4, y/4, n*25.6);
+    if(mode=='5'){
+        ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
+        ofRotateXDeg(rot);
+        drawMode4(0,0,0,300,depthM1);
+        rot += 0.01;
+    }
 
-    ofPoint a(x, y);
-    ofPoint b(x + size, y);
-    ofPoint c(x + size / 2, y + ((sqrt(3) * size) / 2));
-
-    ofDrawTriangle(a, b, c);
-
-    drawMode3(x, y, size / 2, n - 1);
-    drawMode3(b.x, y, size / 2, n - 1);
-    drawMode3(c.x, c.y, size/2, n-1);
 }
-
-
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     // This method is called automatically when any key is pressed
@@ -135,6 +105,9 @@ void ofApp::keyPressed(int key){
             break;
         case '4':
             mode = '4';
+            break;
+        case '5':
+            mode = '5';
             break;
 
         case '-':
@@ -156,6 +129,36 @@ void ofApp::keyPressed(int key){
 }
 
 //--------------------------------------------------------------
+void ofApp::drawMode4(float x, float y, float z, float size, int n){
+    if(n!=0){
+        ofPushMatrix();
+
+        ofTranslate(x,y,z);
+
+        // ofFill();
+        //fill is NOT working well
+        ofSetColor(255);
+        // ofSetColor(x + x*size, y + y*size,  z+z*size);
+        ofDrawBox(x,y,z, size);
+
+
+        ofPopMatrix();
+            for(int i = -1; i<2; i++){
+                for(int j = -1; j<2; j++){
+                    for(int k = -1; k<2; k++){
+                        
+                        int sum = abs(i) + abs(j) + abs(k);
+                        if(sum>1){
+                            drawMode4(x + i*(size/6), y + j*(size/6), z + k*(size/6), size/3, n-1);
+                        }
+                }
+            }
+        }
+    }
+}
+
+
+//--------------------------------------------------------------
 void ofApp::keyReleased(int key){
 
 }
@@ -172,7 +175,14 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+    // vector<Menger> nextCreation = cubes[0].creator();
+    // cubes = nextCreation;
+    vector<Menger> next;
+    for(Menger h: cubes){
+        vector<Menger> temp = h.creator();
+        next.insert(next.end(), temp.begin(), temp.end());
+    }
+    cubes = next;
 }
 
 //--------------------------------------------------------------
