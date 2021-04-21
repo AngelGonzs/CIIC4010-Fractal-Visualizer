@@ -15,6 +15,7 @@ void ofApp::setup(){
 
     Menger bocks(0,0,0,200);
     cubes.push_back(bocks);
+
 }
 
 //--------------------------------------------------------------
@@ -84,11 +85,12 @@ void ofApp::draw(){
 
     if(mode=='5'){
         ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
+        cam.begin();
         ofRotateXDeg(rot);
         drawMode4(0,0,0,300,depthM1);
         rot += 0.01;
     }
-
+    cam.end();
 }
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
@@ -125,6 +127,9 @@ void ofApp::keyPressed(int key){
             depthM1 = 0;
             animation = true;
             break;
+
+        case '.':
+            zoom+=5;
     }
 }
 

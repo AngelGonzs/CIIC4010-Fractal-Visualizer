@@ -52,7 +52,9 @@ class ofApp : public ofBaseApp{
 
 		vector<Fractal*> dms;	
 		ofLight spotlight;
+
 		ofEasyCam cam;
+		int zoom = 100;
 
 
 		//variables for animation feature
