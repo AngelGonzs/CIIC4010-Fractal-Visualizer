@@ -2,6 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofSetFrameRate(15);
     dm1 = new DM1(false);
 
     dm2 = new DM2(false, depth);
@@ -173,8 +174,10 @@ void ofApp::drawMode4(float x, float y, float z, float size, int n){
     }
 }
 //--------------------------------------------------------------
+//need to move this to a fractal mode later but as of now i wont cause no.
 void ofApp::drawMode5(float x, float y, float size, int n){
     if(n!=0){
+        // ofSetColor(x+(n+5)*10,y+(n+5)*10,size*5);
         ofDrawRectangle(x,y,size,size);
         for(int i=-1;i<2;i++){
             for(int j=-1;j<2;j++){
