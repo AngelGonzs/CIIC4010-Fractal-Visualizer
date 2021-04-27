@@ -56,7 +56,7 @@ void ofApp::draw(){
         dms[1]->draw(ofGetWidth()/2, ofGetHeight()-50, depth, 200);
     }
     if(dms[2]->getActivate()) {
-        dms[2]->draw(ofGetWidth() / 8, 10, ofGetHeight() / 2, depth);
+        dms[2]->draw(ofGetWidth() / 3.2, 10, 500, depth);
     }
 
     if(mode=='1'){

@@ -17,6 +17,6 @@ void DM3::draw(int x, int y, int size, int n){
     ofDrawTriangle(a, b, c);
 
     draw(x, y, size / 2, n - 1);
-    draw(b.x, y, size / 2, n - 1);
-    draw(c.x, c.y, size/2, n-1);
+    draw((a.x + b.x) / 2, (a.y + b.y) / 2, size / 2, n - 1);
+    draw(x + size/4, y + ((sqrt(3) * size/2) / 2) , size/2, n-1);
 }
