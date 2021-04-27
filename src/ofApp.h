@@ -7,6 +7,7 @@
 #include "drawMode1.h"
 #include "drawMode2.h"
 #include "drawMode3.h"
+#include "drawMode4.h"
 //testing menger:
 #include "Menger.h"
 #include "ofLight.h"
@@ -45,8 +46,10 @@ class ofApp : public ofBaseApp{
 		DM1 *dm1;
 		DM2 *dm2;
 		DM3 *dm3;
+		DM4 *dm4;
 
     	vector<Menger> cubes;
+		vector<Menger> restart;
 		//storage for all the cubes
         float rot = 0;
 		//variable used to rotate the cube hehehehe

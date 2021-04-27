@@ -1,5 +1,5 @@
 #include "ofApp.h"
-
+int cubeCounter = 0;
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetFrameRate(15);
@@ -9,14 +9,16 @@ void ofApp::setup(){
     dm2->randomize(depth);
 
     dm3 = new DM3(false);
+    dm4 = new DM4(false);
 
     dms.push_back(dm1);
     dms.push_back(dm2);
     dms.push_back(dm3);
+    dms.push_back(dm4);
 
     Menger bocks(0,0,0,200);
     cubes.push_back(bocks);
-
+    restart = cubes;
 }
 
 //--------------------------------------------------------------
@@ -48,7 +50,6 @@ void ofApp::draw(){
     /* The update method is called muliple times per second
     It's in charge of drawing all figures and text on screen */
     ofNoFill();
-    ofDrawBitmapString(mode, 100,100);
     if(dms[0]->getActivate()){
         dms[0]->draw(ofGetWidth()/2, ofGetHeight()/2, depthM1, 100);
     }
@@ -57,6 +58,10 @@ void ofApp::draw(){
     }
     if(dms[2]->getActivate()) {
         dms[2]->draw(ofGetWidth() / 4, 10, 500, depth);
+    }
+    if(dms[3]->getActivate()){
+        ofTranslate(ofGetWidth()/2 - 100, ofGetHeight()/2 - 100);
+        dms[3]->draw(0,0,200,depthM1);
     }
 
     if(mode=='1'){
@@ -69,12 +74,18 @@ void ofApp::draw(){
         mode = '0';
     }
     if(mode=='3'){
-        spotlight.disable();
         dms[2]->setActivate();
         mode = '0';
     }
-
     if(mode=='4'){
+        dms[3]->setActivate();
+        mode = '0';
+    }
+
+    if(mode=='5'){
+        ofDrawBitmapString("Click to generate", 10,10);
+        ofDrawBitmapString("Four clicks will cause a reset", 10,20);
+
         ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
         ofRotateXDeg(rot);
         ofSetColor(255);
@@ -86,20 +97,24 @@ void ofApp::draw(){
         spotlight.disable();
 
     }
-
+    //repetition to make it more readable 
     if(mode=='5'){
+        for(int i=0; i<dms.size();i++){
+            if(dms[i]->getActivate()){
+                dms[i]->setActivate();
+            }
+        }
+    }
+
+    if(mode=='6'){
         ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
         cam.begin();
         ofRotateXDeg(rot);
         drawMode4(0,0,0,300,depthM1);
         rot += 0.01;
     }
-
-    if(mode=='6'){
-        ofTranslate(ofGetWidth()/2 - 100, ofGetHeight()/2 - 100);
-        drawMode5(0,0,200,depthM1);
-    }
     cam.end();
+    spotlight.disable();
 }
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
@@ -174,24 +189,6 @@ void ofApp::drawMode4(float x, float y, float z, float size, int n){
     }
 }
 //--------------------------------------------------------------
-//need to move this to a fractal mode later but as of now i wont cause no.
-void ofApp::drawMode5(float x, float y, float size, int n){
-    if(n!=0){
-        // ofSetColor(x+(n+5)*10,y+(n+5)*10,size*5);
-        ofDrawRectangle(x,y,size,size);
-        for(int i=-1;i<2;i++){
-            for(int j=-1;j<2;j++){
-                int sum = abs(i) + abs(j);
-                if(sum!=0){
-                    drawMode5(x - i*(size/3) + size/3, y + j*(size/3) + size/3, size/3, n-1);
-                }
-            }
-        }
-        
-    }
-}
-
-//--------------------------------------------------------------
 void ofApp::keyReleased(int key){
 
 }
@@ -215,7 +212,15 @@ void ofApp::mousePressed(int x, int y, int button){
         vector<Menger> temp = h.creator();
         next.insert(next.end(), temp.begin(), temp.end());
     }
-    cubes = next;
+
+    if(cubeCounter >=3){
+        cubes = restart; 
+        cubeCounter = 0;
+    }
+    else{
+        cubes = next;
+        cubeCounter++;
+    }
 }
 
 //--------------------------------------------------------------
