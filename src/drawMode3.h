@@ -4,5 +4,5 @@
 class DM3: public Fractal{
     public:
         DM3(bool);
-        void draw(int,int,int,int);
+        void draw(float,float,float,int);
 };

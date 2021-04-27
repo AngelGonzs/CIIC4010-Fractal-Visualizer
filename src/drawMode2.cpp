@@ -4,7 +4,7 @@ DM2::DM2(bool activate, int n):Fractal(activate){
     this->n = n;
 }
 
-void DM2::draw(int x, int y, int n, int length){
+void DM2::draw(float x, float y, float n, int length){
     if(n != 0){
         ofSetColor(x/4, y/4, n*25.6);
 

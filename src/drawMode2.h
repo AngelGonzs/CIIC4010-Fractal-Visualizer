@@ -3,7 +3,7 @@
 class DM2: public Fractal{
     public:
         DM2(bool, int);
-        void draw(int,int,int,int);
+        void draw(float,float,float,int);
         void randomize(int);
 
 

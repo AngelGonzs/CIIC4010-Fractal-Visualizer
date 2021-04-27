@@ -3,7 +3,7 @@
 DM3::DM3(bool activate): Fractal(activate){}
 
 
-void DM3::draw(int x, int y, int size, int n){
+void DM3::draw(float x, float y, float size, int n){
     if(n == 0) {
         return;
     }
