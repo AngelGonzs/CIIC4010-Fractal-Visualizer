@@ -9,10 +9,10 @@ void DM2::draw(float x, float y, float n, int length){
         ofSetColor(x/4, y/4, n*25.6);
 
         int leftAngle = randDegrees[n-1];
-        int rightAngle = randDegrees[randDegrees.size() - n + 1 ];
+        int rightAngle = randDegrees[randDegrees.size() - n + 1 ];//These two lines will randomize the branches.
 
 
-
+        //These lines will draw the "Branches" of the tree, each diverging from another branch.
         int middleY = y-length;
         int leftBranchX = x -length*cos(PI/180*leftAngle);
         int leftBranchY = middleY -length*sin(PI/180*leftAngle);

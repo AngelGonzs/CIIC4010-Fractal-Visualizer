@@ -2,7 +2,7 @@
 
 DM1::DM1(bool activate):Fractal(activate){}
 
-void DM1::draw(float x,float y, float n, int radius){
+void DM1::draw(float x,float y, float n, int radius){ //To draw the neccesary formula for the circles.
     if(n!=0){
         ofSetColor(x/4, y/4, n*64 );
 
