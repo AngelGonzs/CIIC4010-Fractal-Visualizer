@@ -26,6 +26,8 @@ void ofApp::update(){
     /* The update method is called muliple times per second
     It's in charge of updating variables and the logic of our app */
     ofSetBackgroundColor(0,0,0);
+    //ofDrawBitmapString("Fractal Figures Visualizer. With depth control, even!", ofGetWidth()/2 - 50, ofGetHeight()/2);
+    //ofDrawBitmapString("Test.", 0, 0);
     if(animation){
         timer += 1;
         if(timer>=120){
@@ -50,6 +52,19 @@ void ofApp::draw(){
     /* The update method is called muliple times per second
     It's in charge of drawing all figures and text on screen */
     ofNoFill();
+    ofDrawBitmapString("Fractal Figures Visualizer. With depth control, even!", 0, 20);
+    ofDrawBitmapString("This program has 6 modes you can interact with, and some features you can use. :)", 0, 50);
+    ofDrawBitmapString("Press '1' to activate Circle Fractal.", 0, 70);
+    ofDrawBitmapString("Press '2' to activate Fractal Tree.", 0, 90);
+    ofDrawBitmapString("Press '3' to activate the Sierpiński Triangle :D.", 0, 110);
+    ofDrawBitmapString("Press '4' to activate a Square based Fractal.", 0, 130);
+    ofDrawBitmapString("Press '5' to activate a 2D Menger Cube, courtesy of Angel's hard work. Click to change the depths of the cube. :DD", 0, 150);
+    ofDrawBitmapString("Press '6' to activate the 3D Menger Cube. Clicking and holding the mouse will allow you to rotate it, thanks to the EasyCam. :D", 0, 170);
+    ofDrawBitmapString("Press '+' to increase the depth of the fractal levels.", 0, 190);
+    ofDrawBitmapString("Press '-' to reduce the depth of the fractal levels.", 0, 210);
+    ofDrawBitmapString("Press the Spacebar to activate the animation.", 0, 230);
+    ofDrawBitmapString("Made by Angel Gonzalez and Yamil Mendez.", 0, 750);
+
     if(dms[0]->getActivate()){
         dms[0]->draw(ofGetWidth()/2, ofGetHeight()/2, depthM1, 100);
     }
@@ -63,7 +78,24 @@ void ofApp::draw(){
         ofTranslate(ofGetWidth()/2 - 100, ofGetHeight()/2 - 100);
         dms[3]->draw(0,0,200,depthM1);
     }
-
+    //while(!mode){
+        //ofDrawBitmapString("Fractal Visualizer, with depths even!", 10, 40);
+        //ofDrawBitmapString("Test", 0, 0);
+    //}
+    /*if(mode!='1'||mode!='2'||mode!='3'||mode!='4'||mode!='5'||mode!='6'){
+        ofDrawBitmapString("Fractal Figures Visualizer. With depth control, even!", 0, 20);
+        ofDrawBitmapString("This program has 6 modes you can interact with, and some features you can use. :)", 0, 50);
+        ofDrawBitmapString("Press '1' to activate Circle Fractal.", 0, 70);
+        ofDrawBitmapString("Press '2' to activate Fractal Tree.", 0, 90);
+        ofDrawBitmapString("Press '3' to activate the Sierpiński Triangle :D.", 0, 110);
+        ofDrawBitmapString("Press '4' to activate a Square based Fractal.", 0, 130);
+        ofDrawBitmapString("Press '5' to activate a 3D Fractal Cube, courtesy of Angel's hard work. Click to change the depths of the cube. :DD", 0, 150);
+        ofDrawBitmapString("Press '6' to activate the Menger Cube. Clicking and holding the mouse will allow you to rotate it, thanks to the EasyCam. :D", 0, 170);
+        ofDrawBitmapString("Press '+' to increase the depth of the fractal levels.", 0, 190);
+        ofDrawBitmapString("Press '-' to reduce the depth of the fractal levels.", 0, 210);
+        ofDrawBitmapString("Press the Spacebar to activate the animation.", 0, 230);
+        ofDrawBitmapString("Made by Angel Gonzalez and Yamil Mendez.", 0, 750);
+    }*/
     if(mode=='1'){
         dms[0]->setActivate();
         mode = '0';
