@@ -18,6 +18,7 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+		//void drawString();
 
 		void drawMode1(int x, int y, int n);
 		void drawMode2(int length, int n, int x, int y, int d);
