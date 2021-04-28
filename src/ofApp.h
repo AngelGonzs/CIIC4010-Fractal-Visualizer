@@ -41,6 +41,7 @@ class ofApp : public ofBaseApp{
 		char mode;
 		int depth = 10;
 		int depthM1 = 4;
+		int mengerDepth = 1;
 
 
 		DM1 *dm1;
@@ -58,11 +59,10 @@ class ofApp : public ofBaseApp{
 		ofLight spotlight;
 
 		ofEasyCam cam;
-		int zoom = 100;
-
 
 		//variables for animation feature
 		int timer = 0;
 		bool animation = false;
+		bool desactivator = false;
 		
 };

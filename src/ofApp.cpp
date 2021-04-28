@@ -28,17 +28,21 @@ void ofApp::update(){
     ofSetBackgroundColor(0,0,0);
     if(animation){
         timer += 1;
-        if(timer>=120){
+        if(timer>=30){
             depth++;
-            depthM1++;
+            if(depthM1 < 6) depthM1++;
+            if(mengerDepth < 5) mengerDepth++;
+            //those are the limits yea...
+
             timer = 0;
             //note that if many modes are activated at once there WILL be delay
-            //this is due to how trash this VM is ;)
+            //this is due to how bad my VM is :)
             // (if u r not on a VM congrats)
         }
         if(depth >= 10){
             depth = 10;
             depthM1 = 4;
+            mengerDepth = 1;
             //returns depths to default values
             animation = false;
         }
@@ -61,7 +65,7 @@ void ofApp::draw(){
     }
     if(dms[3]->getActivate()){
         ofTranslate(ofGetWidth()/2 - 100, ofGetHeight()/2 - 100);
-        dms[3]->draw(0,0,200,depthM1);
+        dms[3]->draw(0,0,200,mengerDepth);
     }
 
     if(mode=='1'){
@@ -89,32 +93,38 @@ void ofApp::draw(){
         ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
         ofRotateXDeg(rot);
         ofSetColor(255);
-        spotlight.enable();
+        // spotlight.enable();
         for(Menger temp: cubes){
             temp.draw();
         }
         rot += 0.1;
-        spotlight.disable();
-
-    }
-    //repetition to make it more readable 
-    if(mode=='5'){
-        for(int i=0; i<dms.size();i++){
-            if(dms[i]->getActivate()){
-                dms[i]->setActivate();
-            }
-        }
     }
 
     if(mode=='6'){
         ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
         cam.begin();
         ofRotateXDeg(rot);
-        drawMode4(0,0,0,300,depthM1);
+        drawMode4(0,0,0,300,mengerDepth);
         rot += 0.01;
     }
+
+    //method to desactivate all 2d stuff
+    //when 3d stuff is on
+    //damn i just realized that it's deactivator and not
+    // desactivator yikes big typo lol
+    if(desactivator){
+        for(int i=0; i<dms.size();i++){
+            if(dms[i]->getActivate()){
+                dms[i]->setActivate();
+            }
+        }
+        desactivator = false;
+    }
+
+
     cam.end();
-    spotlight.disable();
+    // spotlight.disable();
+    //for some reason the spotlight would never turn off so I have deleted it
 }
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
@@ -134,33 +144,38 @@ void ofApp::keyPressed(int key){
             break;
         case '5':
             mode = '5';
+            desactivator = true;
             break;
         case '6':
             mode = '6';
+            desactivator = true;
             break;
+
 
         case '-':
             if(depth>0) depth--;
             if(depthM1>0) depthM1--;
+            if(mengerDepth>0) mengerDepth--;
             break;
 
         case '=':
             depth++;
             depthM1++;
+            mengerDepth++;
             break;
 
         case ' ':
             depth = 0;
             depthM1 = 0;
+            mengerDepth = 0;
             animation = true;
             break;
-
-        case '.':
-            zoom+=5;
     }
 }
 
 //--------------------------------------------------------------
+//this mode was purely for practice and to help the development
+//of a recursive menger sponge
 void ofApp::drawMode4(float x, float y, float z, float size, int n){
     if(n!=0){
         ofPushMatrix();
@@ -216,10 +231,12 @@ void ofApp::mousePressed(int x, int y, int button){
     if(cubeCounter >=3){
         cubes = restart; 
         cubeCounter = 0;
+        //reset
     }
     else{
         cubes = next;
         cubeCounter++;
+        //generating a new layer
     }
 }
 
