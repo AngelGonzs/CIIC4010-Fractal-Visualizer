@@ -18,7 +18,6 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
-		//void drawString();
 
 		void drawMode1(int x, int y, int n);
 		void drawMode2(int length, int n, int x, int y, int d);
@@ -42,6 +41,7 @@ class ofApp : public ofBaseApp{
 		char mode;
 		int depth = 10;
 		int depthM1 = 4;
+		int mengerDepth = 1;
 
 
 		DM1 *dm1;
@@ -59,11 +59,11 @@ class ofApp : public ofBaseApp{
 		ofLight spotlight;
 
 		ofEasyCam cam;
-		int zoom = 100;
-
 
 		//variables for animation feature
 		int timer = 0;
 		bool animation = false;
+		bool deactivator = false;
+		//bool drawString = false;
 		
 };

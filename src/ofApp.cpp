@@ -30,22 +30,28 @@ void ofApp::update(){
     //ofDrawBitmapString("Test.", 0, 0);
     if(animation){
         timer += 1;
-        if(timer>=120){
+        if(timer>=30){
             depth++;
-            depthM1++;
+            if(depthM1 < 6) depthM1++;
+            if(mengerDepth < 5) mengerDepth++;
+            //those are the limits yea...
+
             timer = 0;
             //note that if many modes are activated at once there WILL be delay
-            //this is due to how trash this VM is ;)
+            //this is due to how bad my VM is :)
             // (if u r not on a VM congrats)
         }
         if(depth >= 10){
             depth = 10;
             depthM1 = 4;
+            mengerDepth = 1;
             //returns depths to default values
             animation = false;
         }
     }
 }
+
+
 
 //--------------------------------------------------------------
 void ofApp::draw(){
@@ -63,7 +69,11 @@ void ofApp::draw(){
     ofDrawBitmapString("Press '+' to increase the depth of the fractal levels.", 0, 190);
     ofDrawBitmapString("Press '-' to reduce the depth of the fractal levels.", 0, 210);
     ofDrawBitmapString("Press the Spacebar to activate the animation.", 0, 230);
-    ofDrawBitmapString("Made by Angel Gonzalez and Yamil Mendez.", 0, 750);
+    ofDrawBitmapString("Made by Angel Gonzalez and Yamil Mendez.", ofGetWidth()/256, ofGetHeight()/1.01);
+    // else if(){
+    //     drawString = false;
+    //         ofDrawBitmapString("Now Presenting: ", mode, 0, 30);
+    // }
 
     if(dms[0]->getActivate()){
         dms[0]->draw(ofGetWidth()/2, ofGetHeight()/2, depthM1, 100);
@@ -76,26 +86,18 @@ void ofApp::draw(){
     }
     if(dms[3]->getActivate()){
         ofTranslate(ofGetWidth()/2 - 100, ofGetHeight()/2 - 100);
-        dms[3]->draw(0,0,200,depthM1);
+        dms[3]->draw(0,0,200,mengerDepth);
     }
     //while(!mode){
         //ofDrawBitmapString("Fractal Visualizer, with depths even!", 10, 40);
         //ofDrawBitmapString("Test", 0, 0);
     //}
-    /*if(mode!='1'||mode!='2'||mode!='3'||mode!='4'||mode!='5'||mode!='6'){
-        ofDrawBitmapString("Fractal Figures Visualizer. With depth control, even!", 0, 20);
-        ofDrawBitmapString("This program has 6 modes you can interact with, and some features you can use. :)", 0, 50);
-        ofDrawBitmapString("Press '1' to activate Circle Fractal.", 0, 70);
-        ofDrawBitmapString("Press '2' to activate Fractal Tree.", 0, 90);
-        ofDrawBitmapString("Press '3' to activate the Sierpiński Triangle :D.", 0, 110);
-        ofDrawBitmapString("Press '4' to activate a Square based Fractal.", 0, 130);
-        ofDrawBitmapString("Press '5' to activate a 3D Fractal Cube, courtesy of Angel's hard work. Click to change the depths of the cube. :DD", 0, 150);
-        ofDrawBitmapString("Press '6' to activate the Menger Cube. Clicking and holding the mouse will allow you to rotate it, thanks to the EasyCam. :D", 0, 170);
-        ofDrawBitmapString("Press '+' to increase the depth of the fractal levels.", 0, 190);
-        ofDrawBitmapString("Press '-' to reduce the depth of the fractal levels.", 0, 210);
-        ofDrawBitmapString("Press the Spacebar to activate the animation.", 0, 230);
-        ofDrawBitmapString("Made by Angel Gonzalez and Yamil Mendez.", 0, 750);
-    }*/
+    //if(!mode){
+    //    drawString == true;
+    //}
+    //else if(mode){
+    //    drawString = false;
+    //}
     if(mode=='1'){
         dms[0]->setActivate();
         mode = '0';
@@ -121,32 +123,39 @@ void ofApp::draw(){
         ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
         ofRotateXDeg(rot);
         ofSetColor(255);
-        spotlight.enable();
+        // spotlight.enable();
         for(Menger temp: cubes){
             temp.draw();
         }
         rot += 0.1;
-        spotlight.disable();
-
-    }
-    //repetition to make it more readable 
-    if(mode=='5'){
-        for(int i=0; i<dms.size();i++){
-            if(dms[i]->getActivate()){
-                dms[i]->setActivate();
-            }
-        }
     }
 
     if(mode=='6'){
         ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
         cam.begin();
         ofRotateXDeg(rot);
-        drawMode4(0,0,0,300,depthM1);
+        drawMode4(0,0,0,300,mengerDepth);
         rot += 0.01;
     }
+
+    //method to desactivate all 2d stuff
+    //when 3d stuff is on
+    //damn i just realized that it's deactivator and not
+    // desactivator yikes big typo lol
+    //I gotchu fam
+    if(deactivator){
+        for(int i=0; i<dms.size();i++){
+            if(dms[i]->getActivate()){
+                dms[i]->setActivate();
+            }
+        }
+        deactivator = false;
+    }
+
+
     cam.end();
-    spotlight.disable();
+    // spotlight.disable();
+    //for some reason the spotlight would never turn off so I have deleted it
 }
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
@@ -166,33 +175,38 @@ void ofApp::keyPressed(int key){
             break;
         case '5':
             mode = '5';
+            deactivator = true;
             break;
         case '6':
             mode = '6';
+            deactivator = true;
             break;
+
 
         case '-':
             if(depth>0) depth--;
             if(depthM1>0) depthM1--;
+            if(mengerDepth>0) mengerDepth--;
             break;
 
         case '=':
             depth++;
             depthM1++;
+            mengerDepth++;
             break;
 
         case ' ':
             depth = 0;
             depthM1 = 0;
+            mengerDepth = 0;
             animation = true;
             break;
-
-        case '.':
-            zoom+=5;
     }
 }
 
 //--------------------------------------------------------------
+//this mode was purely for practice and to help the development
+//of a recursive menger sponge
 void ofApp::drawMode4(float x, float y, float z, float size, int n){
     if(n!=0){
         ofPushMatrix();
@@ -248,10 +262,12 @@ void ofApp::mousePressed(int x, int y, int button){
     if(cubeCounter >=3){
         cubes = restart; 
         cubeCounter = 0;
+        //reset
     }
     else{
         cubes = next;
         cubeCounter++;
+        //generating a new layer
     }
 }
 
