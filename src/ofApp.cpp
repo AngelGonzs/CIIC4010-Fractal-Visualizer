@@ -58,19 +58,21 @@ void ofApp::draw(){
     /* The update method is called muliple times per second
     It's in charge of drawing all figures and text on screen */
     ofNoFill();
-    ofDrawBitmapString("Fractal Figures Visualizer. With depth control, even!", 0, 20);
-    ofDrawBitmapString("This program has 6 modes you can interact with, and some features you can use. :)", 0, 50);
-    ofDrawBitmapString("Press '1' to activate Circle Fractal.", 0, 70);
-    ofDrawBitmapString("Press '2' to activate Fractal Tree.", 0, 90);
-    ofDrawBitmapString("Press '3' to activate the Sierpiński Triangle :D.", 0, 110);
-    ofDrawBitmapString("Press '4' to activate a Square based Fractal.", 0, 130);
-    ofDrawBitmapString("Press '5' to activate a 2D Menger Cube, courtesy of Angel's hard work. Click to change the depths of the cube. :DD", 0, 150);
-    ofDrawBitmapString("Press '6' to activate the 3D Menger Cube. Clicking and holding the mouse will allow you to rotate it, thanks to the EasyCam. :D", 0, 170);
-    ofDrawBitmapString("Press '+' to increase the depth of the fractal levels.", 0, 190);
-    ofDrawBitmapString("Press '-' to reduce the depth of the fractal levels.", 0, 210);
-    ofDrawBitmapString("Press the Spacebar to activate the animation.", 0, 230);
-    ofDrawBitmapString("Made by Angel Gonzalez and Yamil Mendez.", ofGetWidth()/256, ofGetHeight()/1.01);
-    // else if(){
+    if(!mode){
+        ofDrawBitmapString("Fractal Figures Visualizer. With depth control, even!", 0, 20);
+        ofDrawBitmapString("This program has 6 modes you can interact with, and some features you can use. :)", 0, 50);
+        ofDrawBitmapString("Press '1' to activate Circle Fractal.", 0, 70);
+        ofDrawBitmapString("Press '2' to activate Fractal Tree.", 0, 90);
+        ofDrawBitmapString("Press '3' to activate the Sierpiński Triangle :D.", 0, 110);
+        ofDrawBitmapString("Press '4' to activate a Square based Fractal.", 0, 130);
+        ofDrawBitmapString("Press '5' to activate a 2D Menger Cube, courtesy of Angel's hard work. Click to change the depths of the cube. :DD", 0, 150);
+        ofDrawBitmapString("Press '6' to activate the 3D Menger Cube. Clicking and holding the mouse will allow you to rotate it, thanks to the EasyCam. :D", 0, 170);
+        ofDrawBitmapString("Press '+' to increase the depth of the fractal levels.", 0, 190);
+        ofDrawBitmapString("Press '-' to reduce the depth of the fractal levels.", 0, 210);
+        ofDrawBitmapString("Press the Spacebar to activate the animation.", 0, 230);
+        ofDrawBitmapString("Made by Angel Gonzalez and Yamil Mendez.", ofGetWidth()/256, ofGetHeight()/1.01);
+    }
+    // else if()
     //     drawString = false;
     //         ofDrawBitmapString("Now Presenting: ", mode, 0, 30);
     // }
