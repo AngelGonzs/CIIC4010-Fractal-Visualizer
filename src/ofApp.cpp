@@ -19,6 +19,7 @@ void ofApp::setup(){
     Menger bocks(0,0,0,200);
     cubes.push_back(bocks);
     restart = cubes;
+
 }
 
 //--------------------------------------------------------------
@@ -49,6 +50,17 @@ void ofApp::update(){
             animation = false;
         }
     }
+
+    for(int i=0; i<dms.size();i++){
+        if(dms[i]->getActivate()){
+            switchCounter++;
+        }
+    }
+    if(switchCounter > 0) oneOn = true;
+    if(switchCounter == 0) oneOn = false;
+    switchCounter = 0;
+
+
 }
 
 
@@ -58,6 +70,7 @@ void ofApp::draw(){
     /* The update method is called muliple times per second
     It's in charge of drawing all figures and text on screen */
     ofNoFill();
+    if(oneOn == false && mode != '5' && mode != '6'){
     ofDrawBitmapString("Fractal Figures Visualizer. With depth control, even!", 0, 20);
     ofDrawBitmapString("This program has 6 modes you can interact with, and some features you can use. :)", 0, 50);
     ofDrawBitmapString("Press '1' to activate Circle Fractal.", 0, 70);
@@ -70,10 +83,7 @@ void ofApp::draw(){
     ofDrawBitmapString("Press '-' to reduce the depth of the fractal levels.", 0, 210);
     ofDrawBitmapString("Press the Spacebar to activate the animation.", 0, 230);
     ofDrawBitmapString("Made by Angel Gonzalez and Yamil Mendez.", ofGetWidth()/256, ofGetHeight()/1.01);
-    // else if(){
-    //     drawString = false;
-    //         ofDrawBitmapString("Now Presenting: ", mode, 0, 30);
-    // }
+    }
 
     if(dms[0]->getActivate()){
         dms[0]->draw(ofGetWidth()/2, ofGetHeight()/2, depthM1, 100);
@@ -88,16 +98,7 @@ void ofApp::draw(){
         ofTranslate(ofGetWidth()/2 - 100, ofGetHeight()/2 - 100);
         dms[3]->draw(0,0,200,mengerDepth);
     }
-    //while(!mode){
-        //ofDrawBitmapString("Fractal Visualizer, with depths even!", 10, 40);
-        //ofDrawBitmapString("Test", 0, 0);
-    //}
-    //if(!mode){
-    //    drawString == true;
-    //}
-    //else if(mode){
-    //    drawString = false;
-    //}
+
     if(mode=='1'){
         dms[0]->setActivate();
         mode = '0';

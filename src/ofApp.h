@@ -64,6 +64,11 @@ class ofApp : public ofBaseApp{
 		int timer = 0;
 		bool animation = false;
 		bool deactivator = false;
+		
+		//switches for modes
+		bool oneOn = false;
+		int switchCounter = 0;
+
 		//bool drawString = false;
 		
 };
