@@ -84,6 +84,7 @@ void ofApp::draw(){
     ofDrawBitmapString("Press the Spacebar to activate the animation.", 0, 230);
     ofDrawBitmapString("Made by Angel Gonzalez and Yamil Mendez.", ofGetWidth()/256, ofGetHeight()/1.01);
     }
+======
 
     if(dms[0]->getActivate()){
         dms[0]->draw(ofGetWidth()/2, ofGetHeight()/2, depthM1, 100);
